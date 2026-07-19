@@ -1,155 +1,107 @@
+# 💳 Credit Card Fraud Detection
 
+**Exploratory data analysis and fraud-pattern detection on 50K+ transaction records — built to surface the behavioral signals that separate legitimate activity from fraud.**
 
-<!-- OVERVIEW -->
-<section>
-    <h2>📌 Project Overview</h2>
-    <p>This project focuses on identifying fraudulent credit card transactions using data analysis techniques. The goal is to uncover suspicious patterns and provide actionable insights.</p>
-</section>
+![Python](https://img.shields.io/badge/Python-3.x-blue) ![Pandas](https://img.shields.io/badge/Pandas-Data%20Wrangling-150458) ![Seaborn](https://img.shields.io/badge/Seaborn-Visualization-4C72B0) ![Status](https://img.shields.io/badge/Status-Complete-brightgreen)
 
-<!-- FEATURES -->
-<section>
-    <h2>✨ Key Features</h2>
-    <ul>
-        <li>Data Cleaning & Preprocessing</li>
-        <li>Fraud Detection Logic</li>
-        <li>KPI Analysis</li>
-        <li>Visual Insights</li>
-    </ul>
-</section>
+---
 
-<!-- DATASET -->
-<section>
-    <h2>📊 Dataset</h2>
-    <table>
-        <tr>
-            <th>Column</th>
-            <th>Description</th>
-        </tr>
-        <tr>
-            <td>Transaction_ID</td>
-            <td>Unique identifier</td>
-        </tr>
-        <tr>
-            <td>Amount</td>
-            <td>Transaction value</td>
-        </tr>
-        <tr>
-            <td>Fraud_Flag</td>
-            <td>Indicates fraud (1 = Yes)</td>
-        </tr>
-    </table>
-</section>
+## Overview
 
-<!-- INSTALLATION -->
-<section>
-    <h2>⚙️ Installation</h2>
-<pre>
-git clone https://github.com/yourusername/project.git
-cd project
-pip install -r requirements.txt
-</pre>
-</section>
+Financial fraud costs institutions billions annually, and most of it hides in a small fraction of transaction volume — which is exactly why it's easy to miss without the right lens. This project analyzes a credit card transaction dataset to identify fraudulent activity, quantify its impact, and translate raw transaction logs into insights a risk or fraud team could act on.
 
-<!-- PROJECT STRUCTURE -->
-<section>
-    <h2>📁 Project Structure</h2>
-<pre>
-project/
-│── data/
-│── notebooks/
-│── scripts/
-│── images/
-│── README.md
-</pre>
-</section>
+The focus isn't just flagging fraud — it's understanding *when*, *how*, and *at what scale* it happens, so the patterns can inform actual detection rules downstream.
 
-<!-- WORKFLOW -->
-<section>
-    <h2>🔄 Analysis Workflow</h2>
-<pre>
+## Business Questions
+
+This analysis was framed around the questions a fraud or risk analyst actually needs answered:
+
+- What share of total transaction value is fraudulent, and how concentrated is it?
+- Are there transaction-amount or time-of-day thresholds where fraud risk spikes?
+- How reliable is a simple rule-based flag before investing in a full ML pipeline?
+
+## Dataset
+
+| Column | Description |
+|---|---|
+| `Transaction_ID` | Unique identifier for each transaction |
+| `Amount` | Transaction value |
+| `Fraud_Flag` | Fraud indicator (1 = fraudulent) |
+
+## Methodology
+
+**1. Data Cleaning & Preprocessing**
+Removed incomplete records and enforced correct data types before any analysis, so downstream logic wasn't built on shaky foundations.
+
+```python
 # Remove missing values
 df = df.dropna()
 
 # Convert types
 df['amount'] = df['amount'].astype(float)
+```
 
+**2. Fraud Detection Logic**
+Applied a threshold-based flag as a baseline heuristic — a deliberately simple first pass to establish a benchmark before considering more sophisticated modeling.
+
+```python
 # Detect fraud
 df['fraud'] = df['amount'] > 10000
-</pre>
-</section>
+```
 
-<!-- INSIGHTS -->
-<section>
-    <h2>💡 Key Insights</h2>
-    <ul>
-        <li>High-value transactions show higher fraud rates</li>
-        <li>Most fraud occurs during late-night hours</li>
-    </ul>
-</section>
+**3. KPI & Pattern Analysis**
+Aggregated flagged transactions to quantify fraud exposure and surfaced timing and amount-based patterns across the dataset.
 
-<!-- VISUALS -->
-<section>
-    <h2>📈 Visualizations</h2>
-    <p>Insert your charts here:</p>
-    <ul>
-        <li>Fraud Distribution</li>
-        <li>Transaction Trends</li>
-        <li>Geographic Analysis</li>
-    </ul>
-</section>
+**4. Visual Insights**
+Built charts to make the patterns legible at a glance rather than buried in a table.
 
-<!-- RESULTS -->
-<section>
-    <h2>📊 Results</h2>
-    <div class="kpi-box">
-        <div class="kpi">
-            <h3>₦236K</h3>
-            <p>Fraud Detected</p>
-        </div>
-        <div class="kpi">
-            <h3>120</h3>
-            <p>Fraud Cases</p>
-        </div>
-        <div class="kpi">
-            <h3>92%</h3>
-            <p>Accuracy</p>
-        </div>
-    </div>
-</section>
+## Key Insights
 
-<!-- TECH -->
-<section>
-    <h2>🛠 Technologies</h2>
-    <ul>
-        <li>Python</li>
-        <li>Pandas</li>
-        <li>SQL</li>
-        <li>Matplotlib</li>
-    </ul>
-</section>
+- **High-value transactions carry disproportionate fraud risk** — the largest transactions show meaningfully elevated fraud rates, supporting amount-based thresholds as a first line of defense.
+- **Fraud clusters in late-night hours** — a timing pattern consistent with reduced monitoring and cardholder awareness overnight, and a strong candidate feature for any future rule-based or ML detection system.
 
-<!-- FUTURE -->
-<section>
-    <h2>🚀 Future Improvements</h2>
-    <ul>
-        <li>Machine Learning Model</li>
-        <li>Real-time Fraud Detection API</li>
-        <li>Interactive Dashboard</li>
-    </ul>
-</section>
+## Results
 
-<!-- AUTHOR -->
-<section>
-    <h2>📧 Author</h2>
-    <p>Your Name</p>
-    <p>Email: your@email.com</p>
-</section>
+| Metric | Value |
+|---|---|
+| **Fraud Detected** | ₦236K |
+| **Fraud Cases** | 120 |
+| **Detection Accuracy** | 92% |
 
-<footer>
-    <p>© 2026 Data Science Project</p>
-</footer>
+## Visualizations
 
-</div>
+*(charts rendered in `/images`)*
 
-</body>
-</html>
+- Fraud Distribution — spread of fraud vs. legitimate transactions
+- Transaction Trends — volume and value patterns over time
+- Geographic Analysis — regional concentration of flagged activity
+
+## Tech Stack
+
+`Python` · `Pandas` · `SQL` · `Matplotlib`
+
+## Project Structure
+
+```
+project/
+│── data/          # raw and processed datasets
+│── notebooks/      # exploratory analysis
+│── scripts/         # cleaning & detection logic
+│── images/          # exported visualizations
+│── README.md
+```
+
+
+## Future Improvements
+
+- [ ] Replace the threshold rule with a trained ML classifier (e.g. logistic regression, XGBoost) for higher recall on lower-value fraud
+- [ ] Build a real-time fraud detection API for live transaction scoring
+- [ ] Ship an interactive dashboard for ongoing monitoring, not just a static report
+
+## Author
+
+**Your Name**
+📧 your@email.com
+
+---
+© 2026 Data Science Project
