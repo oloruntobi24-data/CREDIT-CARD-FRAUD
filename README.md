@@ -101,7 +101,7 @@ project/
 ## Author
 
 **Your Name**
-📧 your@email.com
+📧 oloruntobioladapo2@gmail.com
 
 ---
 © 2026 Data Science Project
